@@ -200,6 +200,8 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 tips == 'hum' ? _humidityValues = value : _waterLevelValues = value;
               });
+            },
+            onChangeEnd: (dynamic value) {
               if (isConnected) {
                 tips == 'hum'
                     ? sendToPeer('$tips:${_humidityValues.start.toInt()},${_humidityValues.end.toInt()}\r\n')
@@ -228,11 +230,15 @@ class _MyHomePageState extends State<MyHomePage> {
             showLabels: true,
             enableTooltip: true,
             minorTicksPerInterval: 1,
-            onChanged: (dynamic value) {
+            onChanged: (dynamic e) {
               setState(() {
-                _steeringGearAngleValue = value;
+                _steeringGearAngleValue = e;
               });
-              sendToPeer('servo:${_humidityValues.start.toInt()},${_humidityValues.end.toInt()}\r\n');
+            },
+            onChangeEnd: (dynamic value) {
+              if (isConnected) {
+                sendToPeer('servo:${value.toInt()}\r\n');
+              }
             },
           ),
         ),
@@ -261,14 +267,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         isManual = value;
                       });
                       if (isConnected) {
-                        sendToPeer('mode:$isManual\r\n');
+                        isManual == true ? sendToPeer('mode:1\r\n') : sendToPeer('mode:0\r\n');
                       }
                     } else {
                       setState(() {
                         isRun = value;
                       });
                       if (isConnected) {
-                        sendToPeer('key:$isRun\r\n');
+                        isRun == true ? sendToPeer('key:1\r\n') : sendToPeer('key:0\r\n');
                       }
                     }
                   })),
