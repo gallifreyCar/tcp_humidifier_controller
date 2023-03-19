@@ -129,8 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Column(
             children: [
               _buildTextRow("温度：", Icons.sunny, Colors.black, temperature, ' °C'),
-              _buildTextRow("湿度：", Icons.hot_tub, Colors.black, temperature, ' %RH'),
-              _buildTextRow("水位：", Icons.water_sharp, Colors.black, temperature, ' m'),
+              _buildTextRow("湿度：", Icons.hot_tub, Colors.black, humidity, ' %RH'),
+              _buildTextRow("水位：", Icons.water_sharp, Colors.black, waterLevel, ' m'),
             ],
           ),
           _buildSafeTextRow(
